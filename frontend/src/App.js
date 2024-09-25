@@ -1,15 +1,21 @@
-import { red, orange, grey } from '@mui/material/colors';
-
-const color = red[500];
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from './pages/HomePage';
+import CreateRecipePage from "./pages/CreateRecipePage";
+import NavBar from "./components/navigation/NavBar";
+import BrowsePage from "./pages/BrowsePage";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
-    <div>
-
-        <p>
-          eRecipe app - From Kitchen to Cloud
-        </p>
-    </div>
+      <Router>
+        <NavBar />
+        <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/create" element={<CreateRecipePage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/recipes" element={<BrowsePage />} />
+        </Routes>
+      </Router>
   );
 }
 

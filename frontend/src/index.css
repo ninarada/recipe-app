@@ -5,6 +5,39 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* orange */
+  --primary-light-color: #FFE5D9;
+  --primary-light2-color: #fae8df;
+  --primary-main-color: #FFB997;  
+  --primary-main2-color: #e4ccbe;  
+  --primary-dark-color: #F67E51;  
+  --primary-contrast-color: #3A3A3A; 
+
+  /* beige */
+  --secondary-light-color: #FFF3E0; 
+  --secondary-main-color: #E5D3B3; 
+  --secondary-dark-color: #C5B299; 
+  --secondary-darker-color: #776c5d;   
+  --secondary-contrast-color: #555555; 
+
+  --background-default-color: #FFF8F1; 
+  --background-paper-color: #FFE8D6;   
+
+  --text-primary-color: #3A3A3A;   
+  --text-secondary-color: #6E6E6E; 
+
+  --grey-lighter-color: #F0EDE5;   
+  --grey-light-color: #D3CBC4;     
+  --grey-medium-color: #857c76;    
+
+  /* Error and Success states */
+  --error-color: #F28B82;          
+  --success-color: #A5D6A7;
+
+  --paper-shadow: #ffffffe8;
+
+  --linear-g: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,185,151,1) 100%);
 }
 
 code {

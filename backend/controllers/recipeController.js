@@ -5,8 +5,14 @@ const Recipe = require('../models/recipe');
 // @desc    Get all recipes
 // @route   GET /api/recipes
 const getRecipes = async (req, res) => {
-  const recipes = await Recipe.find();
-  res.json(recipes);
+  try {
+    const limit = parseInt(req.query._limit, 10);
+    const recipes = await Recipe.find().limit(limit);
+    res.json(recipes);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+  
 };
 
 // @desc    Add a new recipe

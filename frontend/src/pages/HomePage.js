@@ -36,25 +36,31 @@ const HomePage = () => {
 
   return (
     <Box>
-      <Box className="landing-hero-box" sx={{
-        height:'100vh',
-        backgroundColor: 'white',
-        position: 'relative',
-        display: 'flex',
-        alignItems: 'center', 
-        justifyContent: 'space-between',
-      }}>
+      <Box sx={{position: 'relative'}}>
         <CircleSVG />
+      </Box>
+      
+      <Box className="landing-hero-box" sx={{
+        minHeight:'100vh',
+        position: {md:'relative'},
+        
+        display: 'grid',
+        gridTemplateColumns:  {
+          xs: "repeat(1, 1fr)",
+          md: "repeat(2, 1fr)",
+        },
+        justifyItems: "center",
+        alignItems: "center",
+      }}>
         <img
             src={mainSVG}
             alt="img"
             style={{
-              width: '70vh',
-              height: '70vh',
-              position: 'absolute',
-              top: '10%', 
-              left: isVisible ? "13%" : "-100%", // Start outside the screen and move to 13%
-              transition: "left 0.8s ease-out", // Smooth slide-in effect
+              width: '30vw',
+              height: '30vw',  
+              zIndex: '1',   
+              transform: isVisible ? 'translateX(0)' : 'translateX(-100%)',
+              transition: 'transform 0.8s ease-out',
             }}  
         />
         <Box className="text-box" sx={{
@@ -62,14 +68,13 @@ const HomePage = () => {
             display: 'flex',
             flexDirection: 'column',
             textAlign: 'center',
-            maxWidth: '46%',
-            paddingRight: '40px',
+            maxWidth: '80%',
             gap: '12px',
             paddingBottom: '20px',
             opacity: isVisible ? 1 : 0, // Fade-in effect
             transition: "opacity 2s ease", // Smooth transition for opacity
           }}>
-            <Typography sx={{fontSize: '46px', color: 'var(--primary-dark-color)'}}>
+            <Typography sx={{fontSize: {xs: '20px', md:'46px'}, color: 'var(--primary-dark-color)'}}>
               Discover Delicious Recipes
             </Typography>
             <Typography sx={{fontSize: '28px', color: 'var(--grey-medium-color)'}}>

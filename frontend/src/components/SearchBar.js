@@ -50,7 +50,6 @@ const SearchBar = ({ onSearch }) => {
                       padding: '5px',
                       borderRadius: '20px',
                       backgroundColor: 'var(--primary-light2-color)',
-                      width: '500px',
                       boxShadow: '0px 0px 20px -4px rgba(0,0,0,0.3);',
                   }
               }}

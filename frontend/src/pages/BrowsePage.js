@@ -1,9 +1,8 @@
 import { Box } from "@mui/material";
-import SearchBar from "../components/SearchBar";
-import RecipeCard from "../components/RecipeCard";
+import SearchBar from "../components/searchBar/SearchBar";
+import RecipeCard from "../components/recipeCard/RecipeCard";
 import { useEffect, useState } from "react";
 import { getAllRecipes } from "../service/recipeService";
-import { Link } from "react-router-dom";
 
 const BrowsePage = () => {
     const [recipes, setRecipes] = useState([]);
@@ -26,15 +25,16 @@ const BrowsePage = () => {
     }, []);
 
     const handleSearch = (searchTerm) => {
+        // Implement search functionality here
     };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
     return (
-        <Box>
-            <SearchBar onSearch={handleSearch}/>
-            <Box className="all-recipes-box" sx={{
+        <Box sx={{backgroundColor:"white"}}>
+            <SearchBar onSearch={handleSearch} />
+            <Box sx={{
                display: 'grid',
                gridTemplateColumns: {
                  xs: "repeat(1, 1fr)",
@@ -48,7 +48,7 @@ const BrowsePage = () => {
                alignItems: "center",
                justifyItems: "center",
                padding: '30px 0px',
-               background: 'linear-gradient(180deg, rgba(255,255,255,1) 0%, var(--primary-light-color) 100%)',
+               background: (theme) => `linear-gradient(180deg, white 0%, ${theme.palette.primary.light} 100%)`,
             }}>
                 {recipes.map(recipe => (
                     <RecipeCard 
@@ -64,7 +64,7 @@ const BrowsePage = () => {
                 ))}
             </Box>
         </Box>
-    )
+    );
 }
 
 export default BrowsePage;

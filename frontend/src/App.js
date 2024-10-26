@@ -1,12 +1,20 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from './pages/HomePage';
-import CreateRecipePage from "./pages/CreateRecipePage";
 import NavBar from "./components/navigation/NavBar";
-import BrowsePage from "./pages/BrowsePage";
-import ProfilePage from "./pages/ProfilePage";
+import {
+  BrowsePage,
+  CreateRecipePage,
+  HomePage,
+  ProfilePage,
+  SignInPage,
+  ViewRecipePage
+} from './pages';
+import { ThemeProvider, CssBaseline } from '@mui/material';
+import theme from './theme';
 
 function App() {
   return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Router>
         <NavBar />
         <Routes>
@@ -14,8 +22,11 @@ function App() {
             <Route path="/create" element={<CreateRecipePage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/recipes" element={<BrowsePage />} />
+            <Route path="/signin" element={<SignInPage />} />
+
         </Routes>
       </Router>
+      </ThemeProvider>
   );
 }
 

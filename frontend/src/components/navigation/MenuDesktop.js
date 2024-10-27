@@ -17,13 +17,29 @@ const MenuDesktop = ({menuItems}) => {
                 <Box
                     className="logo-box"
                     sx={{
-                        color: theme.palette.primary.dark,
-                        fontWeight: 600,
-                        fontSize: "20px",
-                        fontStyle: "italic",
+                        display:"flex",
+                        alignItems:"center"
                     }}
                 >
-                    eRecipes
+                    <Typography sx={{
+                        color: theme.palette.deepOrange[900],
+                        fontWeight: 900,
+                        fontSize: "25px",
+                        fontStyle: "italic",
+                        textShadow: "0px 0px 1px rgba(0, 0, 0, 0.2)",
+                    }}> 
+                        e
+                    </Typography>
+                    <Typography sx={{
+                        color: theme.palette.primary.dark,
+                        fontWeight: 900,
+                        fontSize: "25px",
+                        fontStyle: "italic",
+                        textShadow: "0px 0px 1px rgba(0, 0, 0, 0.2)",
+                    }}>
+                        Recipes
+                    </Typography>
+                    
                 </Box>
             </Link>
             <Box
@@ -33,21 +49,24 @@ const MenuDesktop = ({menuItems}) => {
                     gap: 3,
                 }}
             >
-                {menuItems.map((item, index) => (
+                {menuItems.map((item, index) => {
+                    const isActive = location.pathname === item.to; 
+                    return (
                     <Link key={index} to={item.to} style={{ textDecoration: "none" }}>
                         <Typography
                             sx={{
-                                color: theme.palette.grey[500],
+                                color: isActive ? theme.palette.deepOrange[800] : theme.palette.brown[300],
                                 textTransform: "lowercase",
                                 "&:hover": {
-                                    color: theme.palette.secondary.dark,
+                                    color: isActive ? theme.palette.beige[800] : theme.palette.beige[900],
                                 },
+                                fontSize: "20px",
                             }}
                         >
                             {item.label}
                         </Typography>
                     </Link>
-                ))}
+                )})}
             </Box>
         </>
     )

@@ -1,7 +1,7 @@
-// src/Login.js
-
-import React from 'react';
-import { Button, TextField, Typography, Paper } from '@mui/material';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { loginUser } from '../../service/userService';
+import { Box, TextField, Typography, Paper } from '@mui/material';
 import { styled } from '@mui/system';
 import { motion } from 'framer-motion';
 import PrimaryButton from '../buttons/primaryButton';
@@ -15,15 +15,54 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 const LogIn = ({ onSwitch }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await loginUser(username, password);
+      // add display a success message
+      navigate("/");
+    } catch (err) {
+      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+    }
+  };
+
   return (
     <StyledPaper component={motion.div} elevation={3}>
-      <Typography variant="h5" style={{color: 'var(--secondary-contrast-color)', textTransform: 'uppercase', fontWeight:'600'}}>Log In</Typography>
-      <TextField label="Email" type="email" fullWidth margin="normal" required />
-      <TextField label="Password" type="password" fullWidth margin="normal" required style={{marginBottom: 24}}/>
-      <PrimaryButton text={'Log In'} /> 
-      <Typography variant="body2" style={{ marginTop: 16 }}>
+      <Typography>
+        Log In
+      </Typography>
+
+      <Box component="form" onSubmit={handleSubmit}>
+        <TextField 
+          label="Username" 
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          fullWidth 
+          margin="normal" 
+          required 
+        />
+        <TextField 
+          label="Password" 
+          type="password" 
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          fullWidth 
+          margin="normal" 
+          required 
+          style={{marginBottom: 24}}
+        />
+        {error && <Typography>{error}</Typography>}
+        <PrimaryButton text={'Log In'} type="submit" /> 
+      </Box>
+      
+      <Typography>
         Don't have an account?{' '}
-        <span onClick={onSwitch} style={{ color: 'var(--primary-dark-color)', cursor: 'pointer' }}>
+        <span onClick={onSwitch}>
           Sign Up
         </span>
       </Typography>

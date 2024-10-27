@@ -2,7 +2,7 @@ const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
 
 // @desc    Register a new user
-// @route   POST /api/users
+// @route   POST /api/users/register
 const registerUser = async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -11,6 +11,19 @@ const registerUser = async (req, res) => {
   if (userExists) {
     res.status(400);
     throw new Error('User already exists');
+  }
+
+  if (!email || !username || !password) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  if (password.length < 6) {
+    return res.status(400).json({ message: "Password must be at least 6 characters long." });
+  }
+
+  const existingUsername = await User.findOne({ username });
+    if (existingUsername) {
+      return res.status(400).json({ message: "Username already in use." });
   }
 
   const user = await User.create({
@@ -35,9 +48,13 @@ const registerUser = async (req, res) => {
 // @desc    Authenticate user & get token
 // @route   POST /api/users/login
 const authUser = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
 
-  const user = await User.findOne({ email });
+  if (!username || !password) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+
+  const user = await User.findOne({ username });
 
   if (user && (await user.matchPassword(password))) {
     res.json({
@@ -48,7 +65,7 @@ const authUser = async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error('Invalid email or password');
+    throw new Error('Invalid username or password');
   }
 };
 

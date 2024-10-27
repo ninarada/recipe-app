@@ -52,7 +52,7 @@ const HomePage = () => {
           justifyItems: "center",
           alignItems: "center",
           backgroundColor:"white",
-          paddingTop: "20px",
+          paddingTop:{ xs: "20px", md: "0px" },
         }}
       >
         <Box

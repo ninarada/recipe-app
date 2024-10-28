@@ -1,28 +1,26 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import React from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from "../../redux/slices/userSlice";
 import { Box, useTheme, useMediaQuery } from "@mui/material";
 import MenuDesktop from "./MenuDesktop";
 import MenuMobile from "./MenuMobile";
 
 const NavBar = () => {
     const theme = useTheme();
-    const location = useLocation();
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
     const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+    const userInfo = useSelector((state) => state.user.userInfo); 
+    const dispatch = useDispatch();
 
-    const isActive = (path) => location.pathname === path;
-
-    const menuItems = isLoggedIn
+    const menuItems = userInfo
         ? [
             { to: "/", label: "Home" },
             { to: "/recipes", label: "Search" },
             { to: "/create", label: "Create" },
             { to: "/profile", label: "Profile" },
-            { to: "/", label: "Log Out" },
+            { to: "/signin", label: "Log Out", onClick: () => dispatch(logout())  },
           ]
         : [
-            { to: "/SignIn", label: "Sign In" },
-            { to: "/SignUp", label: "Sign Up" },
+            { to: "/signin", label: "Sign In" },
     ];
 
     return (

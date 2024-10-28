@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../service/userService';
 import { Box, TextField, Typography, Paper } from '@mui/material';
 import { styled } from '@mui/system';
 import { motion } from 'framer-motion';
 import PrimaryButton from '../buttons/primaryButton';
-
+import { register } from '../../redux/slices/userSlice';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -21,15 +22,17 @@ const SignUp = ({ onSwitch }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await registerUser(username, email, password);
-      // add display a success message
+      const userData = await dispatch(register({username, email, password})).unwrap();
+      console.log(userData);
+      localStorage.setItem('userData', JSON.stringify(userData));
       navigate("/");
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      console.error(err);
     }
   };
   

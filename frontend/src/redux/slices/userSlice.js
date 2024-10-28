@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { loginUser, registerUser } from '../service/userService';
+import { loginUser, registerUser } from '../../service/userService';
 
 const initialState = {
-    userInfo: null,
+    userInfo: JSON.parse(localStorage.getItem('userData')) || null,
     loading: false,
     error: null,
 };
@@ -13,7 +13,7 @@ export const register = createAsyncThunk(
     async ( {username, email, password}, { rejectWithValue }) => {
       try {
         const response = await registerUser(username, email, password);
-        return response.data; 
+        return response; 
       } catch (error) {
         return rejectWithValue(error.response?.data?.message || 'Registration failed');
       }
@@ -26,7 +26,7 @@ export const login = createAsyncThunk(
     async ({username, password}, { rejectWithValue }) => {
       try {
         const response = await loginUser(username, password);
-        return response.data; 
+        return response; 
       } catch (error) {
         return rejectWithValue(error.response?.data?.message || 'Login failed');
       }
@@ -40,6 +40,7 @@ const userSlice = createSlice({
       logout: (state) => {
         state.userInfo = null; 
         state.error = null; 
+        localStorage.removeItem('userData');
       },
     },
     extraReducers: (builder) => {

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import { loginUser } from '../../service/userService';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, TextField, Typography, Paper } from '@mui/material';
 import { styled } from '@mui/system';
 import { motion } from 'framer-motion';
 import PrimaryButton from '../buttons/primaryButton';
+import { login } from '../../redux/slices/userSlice';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
@@ -17,19 +18,28 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 const LogIn = ({ onSwitch }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const error = useSelector((state) => state.user.error);
+  const userInfo = useSelector((state) => state.user.userInfo); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await loginUser(username, password);
-      // add display a success message
+      const userData = await dispatch(login({ username, password })).unwrap();
+      console.log(userData);
+      localStorage.setItem('userData', JSON.stringify(userData));
       navigate("/");
     } catch (err) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      console.error(err);
     }
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      console.log("User Info after dispatch:", userInfo); // Log user info after successful login
+    }
+  }, [userInfo]); 
 
   return (
     <StyledPaper component={motion.div} elevation={3}>

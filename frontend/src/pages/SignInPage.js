@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import LogIn from "../components/signin/LogIn";
 import SignUp from "../components/signin/SignUp";
+import theme from "../theme";
 
 
 const SignInPage = () => {
@@ -29,8 +30,8 @@ const SignInPage = () => {
     
     return(
         <Box sx={{
-                minHeight: '100vh',
-                background: 'var(--linear-g)',
+                height: 'calc(100vh - 58.5px)',
+                background: theme.gradients.linear,
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',

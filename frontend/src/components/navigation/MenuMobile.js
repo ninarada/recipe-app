@@ -17,14 +17,14 @@ const MenuMobile = ({menuItems}) => {
 
   return (
     <>
-      <MenuIcon onClick={toggleDrawer} />
+      <Box sx={{ padding: '10px'}}></Box>
       <Drawer 
-        anchor="left" 
+        anchor="top" 
         open={open} 
         onClose={toggleDrawer} 
         PaperProps={{
         sx: { 
-          width: "60%",
+          width: "100%",
           backgroundColor: 'rgba(255, 255, 255, 0.9)',
           padding: '20px',
         },
@@ -42,9 +42,9 @@ const MenuMobile = ({menuItems}) => {
                     textAlign: 'center',
                     color: isActive ? theme.palette.primary.main : theme.palette.grey[500],
                     textTransform: "lowercase",
-                    borderLeft: isActive ? `2px solid ${theme.palette.primary.main}` : 'none', // Underline active item
+                    //borderLeft: isActive ? `2px solid ${theme.palette.primary.main}` : 'none', // Underline active item
                     "&:hover": {
-                      color: theme.palette.secondary.dark,
+                      color: isActive ? theme.palette.primary.main : theme.palette.secondary.dark,
                     },
                   }}
                 >
@@ -65,7 +65,7 @@ const MenuMobile = ({menuItems}) => {
       >
         eRecipes
       </Typography>
-      <AccountCircleIcon />
+      <MenuIcon onClick={toggleDrawer} />
     </>
   );
 };

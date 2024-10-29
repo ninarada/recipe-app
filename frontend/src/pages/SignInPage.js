@@ -1,4 +1,4 @@
-import { Box, Card, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import LogIn from "../components/signin/LogIn";

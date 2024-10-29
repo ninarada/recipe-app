@@ -8,7 +8,7 @@ const recipeSchema = new Schema ({
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',  // Assuming you'll have authentication later
+    ref: 'User', 
     required: true,
   },
   description: { 
@@ -26,16 +26,40 @@ const recipeSchema = new Schema ({
       unit: { type: String, required: false },
     },
   ],
-  instructions: {
-    type: String,
+  instructions: { 
+    type: [String],
     required: true,
   },
   bookmark_counter: { type: Number, default: 0 },
   like_counter: { type: Number, default: 0 },
+  time_consuming: {
+    value: {
+      type: Number,
+      required: false,
+    },
+    unit: {
+      type: String,
+      enum: ['minutes', 'hours'],
+      required: false,
+    }
+  },
+  average_rating: { 
+    type: Number,
+    default: 0,
+  },
+  difficulty: { 
+    type: String, 
+    enum: ['Easy', 'Intermediate', 'Advanced', ''], 
+    default: '',
+  },
+  tags: [
+    {
+      type: String,
+    }
+  ]
 }, {
   timestamps: true,
 });
 
-const Recipe = mongoose.model("Recipe", recipeSchema, "recipe");
 
-module.exports = Recipe;
+module.exports = mongoose.model('Recipe', recipeSchema);

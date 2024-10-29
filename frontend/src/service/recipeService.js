@@ -9,3 +9,24 @@ export const getAllRecipes = async (limit) => {
         throw new Error("Error loading recipes data.");
     }
 }
+
+export const createRecipe = async (title, description, ingredients, instructions, time_consuming, difficulty, tags) => {
+    try {
+        const response = await apiClient.post('/api/recipes/create', {
+            title,
+            description,
+            ingredients,    
+            instructions,  
+            time_consuming, 
+            difficulty, 
+            tags,
+        });
+        return response.data;
+    } catch (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+            throw new Error(error.response.data.message);
+        } else {
+            throw new Error("Error creating recipe. Please try again.");
+        }
+    }
+}

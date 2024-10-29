@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, TextField, Typography, Paper } from '@mui/material';
@@ -6,13 +6,14 @@ import { styled } from '@mui/system';
 import { motion } from 'framer-motion';
 import PrimaryButton from '../buttons/primaryButton';
 import { login } from '../../redux/slices/userSlice';
+import { useTheme } from '@emotion/react';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(3),
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  width: 300,
+  width: 400,
 }));
 
 const LogIn = ({ onSwitch }) => {
@@ -21,33 +22,47 @@ const LogIn = ({ onSwitch }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const error = useSelector((state) => state.user.error);
-  const userInfo = useSelector((state) => state.user.userInfo); 
+  const theme = useTheme();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const userData = await dispatch(login({ username, password })).unwrap();
-      console.log(userData);
       localStorage.setItem('userData', JSON.stringify(userData));
+      console.log(userData);
       navigate("/");
     } catch (err) {
       console.error(err);
     }
   };
 
-  useEffect(() => {
-    if (userInfo) {
-      console.log("User Info after dispatch:", userInfo); // Log user info after successful login
-    }
-  }, [userInfo]); 
-
   return (
     <StyledPaper component={motion.div} elevation={3}>
-      <Typography>
-        Log In
+      <Typography sx={{
+        fontSize: '36px',
+        fontWeight: 800,
+        color: theme.palette.primary.main,
+        textAlign: 'center'
+      }}>
+        Welcome Back!
+      </Typography>
+      <Typography sx={{
+        fontSize: '18px',
+        fontWeight: 800,
+        color: theme.palette.grey[500],
+        textAlign: 'center',
+        padding: '10px 0px',
+      }}>
+        Log in to continue discovering delicious recipes  
       </Typography>
 
-      <Box component="form" onSubmit={handleSubmit}>
+      <Box 
+        component="form" 
+        onSubmit={handleSubmit}
+        sx={{
+          padding: '0px 30px'
+        }}
+      >
         <TextField 
           label="Username" 
           value={username}
@@ -67,15 +82,37 @@ const LogIn = ({ onSwitch }) => {
           style={{marginBottom: 24}}
         />
         {error && <Typography>{error}</Typography>}
-        <PrimaryButton text={'Log In'} type="submit" /> 
+        <Box sx={{
+          display: 'flex',
+          justifyContent:'center',
+        }}>
+          <PrimaryButton text={'Log In'} type="submit" fontsize={'18'} />
+        </Box>
       </Box>
-      
-      <Typography>
-        Don't have an account?{' '}
-        <span onClick={onSwitch}>
+
+      <Box sx={{
+        display: 'flex',
+        justifyContent:'center',
+        marginTop: '10px',
+      }}>
+        <Typography>
+          Don't have an account?
+        </Typography>
+        <Typography 
+          onClick={onSwitch} 
+          sx={{
+            color: theme.palette.beige[900],
+            paddingLeft: '8px',
+            fontWeight: 700,
+            '&:hover' : {
+              color: theme.palette.beige[600],
+              cursor: 'pointer',
+            }
+          }}
+        >
           Sign Up
-        </span>
-      </Typography>
+        </Typography>
+      </Box>
     </StyledPaper>
   );
 };

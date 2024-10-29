@@ -15,7 +15,8 @@ const palette = {
       contrastText: '#555555',
     },
     background: {
-      default: '#FFF8F1',
+      default: '#FFFFFF',
+      beige: '#FFF8F1',
       paper: '#FFFFFF',
     },
     text: {

@@ -10,17 +10,28 @@ export const getAllRecipes = async (limit) => {
     }
 }
 
-export const createRecipe = async (title, description, ingredients, instructions, time_consuming, difficulty, tags) => {
+export const createRecipe = async (title, description,  ingredients, instructions, time_consuming, difficulty, photo, tags) => {
     try {
-        const response = await apiClient.post('/api/recipes/create', {
-            title,
-            description,
-            ingredients,    
-            instructions,  
-            time_consuming, 
-            difficulty, 
-            tags,
-        });
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const token = userData?.token; 
+
+        const response = await apiClient.post('/api/recipes/create', 
+            {
+                title,
+                description,
+                ingredients,  
+                instructions,  
+                time_consuming, 
+                difficulty, 
+                photo,  
+                tags,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
         return response.data;
     } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {

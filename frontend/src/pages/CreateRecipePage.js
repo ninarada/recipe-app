@@ -1,5 +1,6 @@
 import { Box, Card, useTheme } from "@mui/material";
-import RecipeCreateCard from "../components/recipeCreateCard/recipeCreateCard";
+import RecipeCreateCard from "../components/recipeCreateCard/RecipeCreateCard";
+import { motion } from "framer-motion";
 
 const CreateRecipePage = () => {
     const theme = useTheme();
@@ -7,12 +8,20 @@ const CreateRecipePage = () => {
     return (
         <Box sx={{
             background: theme.gradients.linear,
-            height: '91.9vh',
+            minHeight: '91.9vh',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            padding: '50px 0px',
         }}>
-            <RecipeCreateCard />
+            {/* <motion.div
+                initial={{ opacity: 0 }} // Start fully transparent
+                animate={{ opacity: 1 }} // Animate to fully opaque
+                transition={{ duration: 0.5 }} // Duration of the fade-in
+            > */}
+                <RecipeCreateCard />
+            {/* </motion.div> */}
+            
         </Box>
     )
 }

@@ -16,10 +16,9 @@ const getRecipes = async (req, res) => {
 // @route   POST /api/recipes/create
 // @access  Private (requires token)
 const createRecipe = async (req, res) => {
-  const { title, description, photo, ingredients, instructions, time_consuming, difficulty, tags } = req.body;
+  const { title, description,  ingredients, instructions, time_consuming, difficulty, photo, tags } = req.body;
 
-  if (!title || !description || !ingredients || !instructions) {
-    console.log(title);
+  if (!title ) {
     return res.status(400).json({ message: "All fields are required." });
   }
 
@@ -27,11 +26,11 @@ const createRecipe = async (req, res) => {
     title,
     author: req.user._id, 
     description,
-    photo,
     ingredients,
     instructions,
     time_consuming, 
     difficulty, 
+    photo,
     tags,
   });
 
@@ -41,7 +40,6 @@ const createRecipe = async (req, res) => {
       title: createdRecipe.title,
       author: createdRecipe.author,
       description: createdRecipe.description,
-      photo: createdRecipe.photo,
       ingredients: createdRecipe.ingredients,
       instructions: createdRecipe.instructions,
       createdAt: createdRecipe.createdAt,
@@ -49,6 +47,7 @@ const createRecipe = async (req, res) => {
       like_counter: createdRecipe.like_counter,
       time_consuming: createdRecipe.time_consuming, 
       difficulty: createdRecipe.difficulty, 
+      photo: createdRecipe.photo,
       tags: createdRecipe.tags,
     });
   } else {

@@ -36,13 +36,13 @@ const palette = {
       dark: '#388e3c',
     },
     warning: {
-      lighter: '#A5D6A7',
+      lighter: '#ffd9a0',
       light: '#ffb74d',
       main: '#ffa726',
       dark: '#f57c00',
     },
     info: {
-      lighter: '#A5D6A7',
+      lighter: '#a2e2ff',
       light: '#4fc3f7',
       main: '#29b6f6',
       dark: '#0288d1',

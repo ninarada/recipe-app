@@ -8,6 +8,7 @@ const RecipeCard = ({ id, title, author, photo, description, bookmark, like }) =
     const theme = useTheme();
 
     return (
+      <Link to={`/recipes/${id}`}  style={{ textDecoration: 'none', color: 'inherit', cursor:'pointer' }}> 
         <Card sx={{ 
             maxWidth: 300, 
             minWidth: 300, 
@@ -20,6 +21,11 @@ const RecipeCard = ({ id, title, author, photo, description, bookmark, like }) =
             position: 'relative',
             backgroundColor: "white",
             boxShadow: '0px 1px 5px rgba(0, 0, 0, 0.2)',
+            transition: 'transform 0.3s ease', 
+            '&:hover': {
+                transform: 'scale(1.05)', 
+                boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.3)', 
+            },
         }}>
             <Box sx={{
                 display: 'flex', 
@@ -86,7 +92,8 @@ const RecipeCard = ({ id, title, author, photo, description, bookmark, like }) =
                     </Box>
                 </Box>
             </CardContent>
-        </Card>
+        </Card> 
+      </Link>
     );
 };
 

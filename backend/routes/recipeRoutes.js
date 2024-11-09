@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createRecipe } = require('../controllers/recipeController');
+const { createRecipe, getRecipes } = require('../controllers/recipeController');
 const { protect } = require('../middleware/authMiddleware'); 
 
 // Route for getting all recipes and adding a new one
@@ -8,8 +8,8 @@ const { protect } = require('../middleware/authMiddleware');
 //   .get(getRecipes)  // GET /api/users/register - Register a new user
 //   .post(addRecipe);
 
-
-router.post('/create', protect, createRecipe);         // POST /api/recipes/create - Add new recipe
+router.get('/', getRecipes);                        // GET /api/recipes - Get all recipes
+router.post('/create', protect, createRecipe);      // POST /api/recipes/create - Add new recipe
   
 
   

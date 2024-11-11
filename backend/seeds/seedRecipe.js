@@ -2,6 +2,7 @@ const recipes = [
     {
       title: "Spaghetti Bolognese",
       description: "A classic Italian pasta dish with a rich tomato and meat sauce.",
+      photo: "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/easy_spaghetti_bolognese_93639_16x9.jpg",
       ingredients: [
         { name: "Spaghetti", quantity: "200", unit: "grams" },
         { name: "Ground beef", quantity: "300", unit: "grams" },
@@ -22,6 +23,7 @@ const recipes = [
     {
       title: "Chicken Curry",
       description: "A flavorful and spicy chicken curry with coconut milk.",
+      photo: "https://www.kitchensanctuary.com/wp-content/uploads/2020/08/Easy-Chicken-Curry-square-FS-117.jpg",
       ingredients: [
         { name: "Chicken breast", quantity: "300", unit: "grams" },
         { name: "Coconut milk", quantity: "400", unit: "ml" },
@@ -41,6 +43,7 @@ const recipes = [
     {
       title: "Veggie Stir Fry",
       description: "A healthy stir fry with mixed vegetables and a soy sauce glaze.",
+      photo: "https://food-images.files.bbci.co.uk/food/recipes/sachas_stir-fry_17077_16x9.jpg",
       ingredients: [
         { name: "Mixed vegetables", quantity: "500", unit: "grams" },
         { name: "Soy sauce", quantity: "2", unit: "tbsp" },
@@ -60,6 +63,7 @@ const recipes = [
     {
       title: "Beef Tacos",
       description: "Tacos filled with seasoned ground beef and fresh toppings.",
+      photo: "https://www.onceuponachef.com/images/2023/08/Beef-Tacos.jpg",
       ingredients: [
         { name: "Ground beef", quantity: "300", unit: "grams" },
         { name: "Taco seasoning", quantity: "1", unit: "packet" },
@@ -78,6 +82,7 @@ const recipes = [
     {
       title: "Grilled Salmon",
       description: "A simple yet delicious grilled salmon with lemon and herbs.",
+      photo: "https://www.allrecipes.com/thmb/CfocX_0yH5_hFxtbFkzoWXrlycs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/ALR-12720-grilled-salmon-i-VAT-4x3-888cac0fb8a34f6fbde7bf836850cd1c.jpg",
       ingredients: [
         { name: "Salmon fillets", quantity: "2", unit: "pieces" },
         { name: "Lemon", quantity: "1", unit: "piece" },
@@ -97,6 +102,7 @@ const recipes = [
     {
       title: "Chocolate Cake",
       description: "A rich and moist chocolate cake with a creamy frosting.",
+      photo: "https://food-images.files.bbci.co.uk/food/recipes/easy_chocolate_cake_31070_16x9.jpg",
       ingredients: [
         { name: "Flour", quantity: "200", unit: "grams" },
         { name: "Cocoa powder", quantity: "50", unit: "grams" },

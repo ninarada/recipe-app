@@ -10,6 +10,15 @@ export const getAllRecipes = async (limit) => {
     }
 }
 
+export const getRecipeById = async(id) => {
+    try {
+        const response = await apiClient.get(`/api/recipes/${id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error("Error loading recipe by id.");
+    }
+}
+
 export const createRecipe = async (title, description,  ingredients, instructions, time_consuming, difficulty, photo, tags) => {
     try {
         const userData = JSON.parse(localStorage.getItem('userData'));

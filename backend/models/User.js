@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+//TODO: dodaj listu di ce se cuva idjevi recepata koje je osoba likeala i bookmarkala i ratala
+// i dodaj ikonu/sliku za svaog korisnika
 const userSchema = mongoose.Schema({
   username: {
     type: String,

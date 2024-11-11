@@ -30,6 +30,12 @@ const seedUsers = async () => {
   
 const seedRecipes = async () => {
     try {
+      const existingRecipes = await Recipe.find();
+      if (existingRecipes.length > 0) {
+          console.log("Recipes already exist in the database. Skipping seeding.");
+          return; 
+      }
+
       const users = await User.find();
   
       for (const recipeData of recipes) {

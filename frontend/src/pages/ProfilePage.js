@@ -1,7 +1,8 @@
 import { Box, useTheme, Typography, Card, Tab, Tabs } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 import ProfileInfo from "../components/profileInfo/ProfileInfo";
-import { getMyRecipes, getLikedRecipes, getBookmarkedRecipes, getRatedRecipes } from "../service/recipeService";
+import { getMyRecipes } from "../service/recipeService";
+import { getLikedRecipes, getBookmarkedRecipes, getRatedRecipes } from "../service/userRecipeService";
 import { useEffect, useState } from "react";
 import RecipeCard from "../components/recipeCard/RecipeCard";
 
@@ -44,33 +45,20 @@ const ProfilePage = () => {
             minHeight: '91.9vh',
             padding:'50px'
         }}>
-        <Grid 
-            container 
-            spacing={2} 
-            sx={{ justifyContent: 'space-evenly'}}
-        >
+        <Box  sx={{ display: 'flex', flexDirection:{ xs: 'column', md: 'row' }, justifyContent: 'space-evenly', gap: '20px'}}>
 
-            <Grid item 
-                xs={12} 
-                md={3} 
-                sx={{
-                    order: { xs: 0, md: 0 }, 
-                }} 
-            >
+            <Box  >
                 <ProfileInfo/>
-            </Grid>
+            </Box>
 
-            <Grid item 
-                xs={12} 
-                md={9} 
-                sx={{
-                    order: { xs: 1, md: 1 }, 
-                }}
-            >
+            <Box sx={{width: '100%'}}>
 
                 <Card sx={{ 
                     display: 'flex', 
                     justifyContent: 'center', 
+                    flexWrap: 'nowrap', 
+                    overflowX: 'auto', 
+                    width:'100%',
                     mb: 4,
                     padding:'7px 40px',
                     borderRadius:'40px',
@@ -82,6 +70,9 @@ const ProfilePage = () => {
                         onChange={handleTabChange}
                         textColor="primary"
                         indicatorColor="primary"
+                        // orientation="vertical"
+                        variant="scrollable"
+                        scrollButtons="auto"
                         centered
                     >
                         <Tab label="My Recipes" value="my recipes" />
@@ -161,9 +152,9 @@ const ProfilePage = () => {
                     ))}
                 </Grid> */}
 
-            </Grid>
+            </Box>
 
-        </Grid>
+        </Box>
             
         </Box>
     )

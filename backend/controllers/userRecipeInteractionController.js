@@ -9,10 +9,18 @@ const getInteraction = async (req, res) => {
             return res.status(400).json({ message: "Missing recipeId or userId" });
         }
 
-        const interaction = await UserRecipeInteraction.findOne({ user: userId, recipe: recipeId });
+        let interaction = await UserRecipeInteraction.findOne({ user: userId, recipe: recipeId });
 
         if (!interaction) {
-            return res.status(404).json({ message: "Interaction not found." });
+            interaction = new UserRecipeInteraction({
+                user: userId,
+                recipe: recipeId,
+                liked: false,  
+                bookmarked: false,  
+                rating: 0  
+            });
+            await interaction.save();
+            return res.status(201).json(interaction);
         }
 
         res.status(200).json(interaction);
@@ -86,7 +94,52 @@ const updateInteraction = async (req, res) => {
     }
 }
 
+const getLikedRecipes = async (req, res) => {
+    const { userId } = req.query;
+    try {
+        const likedRecipes = await UserRecipeInteraction.find({
+            user: userId,
+            liked: true
+        }).populate('recipe'); 
+        res.json(likedRecipes);
+    } catch (error) {
+        console.error('Error retrieving liked recipes:', error);
+        throw new Error('Unable to fetch liked recipes');
+    }
+}
+
+const getBookmarkedRecipes = async (req, res) => {
+    const { userId } = req.query;
+    try {
+        const bookmarkedRecipes = await UserRecipeInteraction.find({
+            user: userId,
+            bookmarked: true
+        }).populate('recipe'); 
+        res.json(bookmarkedRecipes);
+    } catch (error) {
+        console.error('Error retrieving bookmarked recipes:', error);
+        throw new Error('Unable to fetch bookmarked recipes');
+    }
+}
+
+const getRatedRecipes = async (req, res) => {
+    const { userId } = req.query;
+    try {
+        const ratedRecipes = await UserRecipeInteraction.find({
+            user: userId,
+            rating: { $ne: 0 }
+        }).populate('recipe'); 
+        res.json(ratedRecipes);
+    } catch (error) {
+        console.error('Error retrieving rated recipes:', error);
+        throw new Error('Unable to fetch rated recipes');
+    }
+}
+
 module.exports = {
     getInteraction,
     updateInteraction,
+    getLikedRecipes,
+    getBookmarkedRecipes,
+    getRatedRecipes,
 };

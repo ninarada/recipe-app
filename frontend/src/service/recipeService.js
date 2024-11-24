@@ -66,19 +66,3 @@ export const createRecipe = async (title, description,  ingredients, instruction
         }
     }
 }
-
-
-
-export const getLikedRecipes = async () => {
-    return null;
-
-}
-
-export const getBookmarkedRecipes = async () => {
-    return null;
-
-}
-
-export const getRatedRecipes = async () => {
-    return null;
-}

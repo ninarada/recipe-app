@@ -32,3 +32,20 @@ export const loginUser = async (username, password) => {
         }
     }
 }
+
+export const getMyProfile = async () => {
+    try {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const token = userData?.token; 
+
+        const response = await apiClient.get('/api/users/profile', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data
+    } catch (error) {
+        throw new Error("Error loading user profile.");
+    }
+}

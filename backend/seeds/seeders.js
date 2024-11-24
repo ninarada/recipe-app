@@ -2,6 +2,8 @@ const User = require('../models/User');
 const Recipe = require('../models/Recipe'); 
 const users = require('./seedUser');
 const recipes = require('./seedRecipe');
+const UserRecipeInteraction = require('../models/UserRecipeInteraction');
+const interactions = require('./seedInteraction');
 
 const seedUsers = async () => {
     try {  
@@ -54,7 +56,41 @@ const seedRecipes = async () => {
     }
 };
 
+const seedInteractions = async () => {
+  try {
+    for (const interactionData of interactions) {
+      const existingInteraction = await UserRecipeInteraction.findOne({
+        user: interactionData.user,
+        recipe: interactionData.recipe,
+      });
+
+      if (existingInteraction) {
+        console.log(
+          `Interaction between user "${interactionData.user}" and recipe "${interactionData.recipe}" already exists. Skipped.`
+        );
+        continue;
+      }
+
+      const newInteraction = new UserRecipeInteraction({
+        user: interactionData.user,
+        recipe: interactionData.recipe,
+        liked: interactionData.liked || false,
+        bookmarked: interactionData.bookmarked || false,
+        rating: interactionData.rating || null,
+      });
+
+      await newInteraction.save();
+      console.log(
+        `Interaction for user "${interactionData.user}" and recipe "${interactionData.recipe}" successfully added.`
+      );
+    }
+  } catch (error) {
+    console.error("Error while seeding interactions:", error);
+  }
+};
+
 module.exports = {
     seedUsers,
     seedRecipes,
+    seedInteractions,
 };

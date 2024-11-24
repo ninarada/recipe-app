@@ -12,6 +12,7 @@ import {
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import theme from './theme';
 import store from './redux/store';
+import Footer from "./components/navigation/Footer";
 
 function PrivateRoute({ element }) {
   const isLoggedIn = useSelector((state) => state.user.userInfo !== null);

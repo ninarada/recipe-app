@@ -43,9 +43,15 @@ const recipeSchema = new Schema ({
       required: false,
     }
   },
-  average_rating: { 
-    type: Number,
-    default: 0,
+  average_rating: {
+    value: {
+      type: Number,
+      default: 0, 
+    },
+    count: {
+      type: Number,
+      default: 0, 
+    },
   },
   difficulty: { 
     type: String, 

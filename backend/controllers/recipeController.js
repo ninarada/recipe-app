@@ -27,6 +27,24 @@ const getRecipeById = async (req, res) => {
   }
 };
 
+// @desc    Get a recipes made by logged in user
+// @route   GET /api/recipes/myProfile
+// @access  Private (requires token)
+const getMyRecipes = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const recipes = await Recipe.find({author: userId});
+
+    if (recipes.length === 0) {
+      return res.status(404).json({ message: "No recipes found for this user" });
+    }
+
+    res.json(recipes);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+}
+
 // @desc    Add a newly created recipe
 // @route   POST /api/recipes/create
 // @access  Private (requires token)
@@ -75,4 +93,5 @@ module.exports = {
   getRecipes,
   createRecipe,
   getRecipeById,
+  getMyRecipes,
 };

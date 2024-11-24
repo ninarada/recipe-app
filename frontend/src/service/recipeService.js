@@ -19,6 +19,22 @@ export const getRecipeById = async(id) => {
     }
 }
 
+export const getMyRecipes = async() => {
+    try {
+        const userData = JSON.parse(localStorage.getItem('userData'));
+        const token = userData?.token; 
+
+        const response = await apiClient.get('/api/recipes/myProfile', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error("Error loading recipes of logged in user.");
+    }
+}
+
 export const createRecipe = async (title, description,  ingredients, instructions, time_consuming, difficulty, photo, tags) => {
     try {
         const userData = JSON.parse(localStorage.getItem('userData'));
@@ -49,4 +65,20 @@ export const createRecipe = async (title, description,  ingredients, instruction
             throw new Error("Error creating recipe. Please try again.");
         }
     }
+}
+
+
+
+export const getLikedRecipes = async () => {
+    return null;
+
+}
+
+export const getBookmarkedRecipes = async () => {
+    return null;
+
+}
+
+export const getRatedRecipes = async () => {
+    return null;
 }

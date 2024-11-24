@@ -7,18 +7,90 @@ import {
     List, ListItem, ListItemIcon, ListItemText,
     Stack, Chip,
     Rating,
+    IconButton,
 } from "@mui/material";
 import CircleIcon from '@mui/icons-material/FiberManualRecord';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-
-
-//TODO: dodaj na hover usernama preview profila korisnika 
+import { useEffect, useState } from "react";
+import { getInteraction, updateInteraction } from "../../service/userRecipeService";
 
 const RecipeView = ({recipe}) => {
     const theme = useTheme();
+    const [liked, setLiked] = useState(false); 
+    const [bookmarked, setBookmarked] = useState(false);
+    const [rating, setRating] = useState(0);
+    const [error, setError] = useState(null);
+    const [localLikeCounter, setLocalLikeCounter] = useState(0);
+    const [localBookmarkCounter, setLocalBookmarkCounter] = useState(0);
+    const [localRating, setLocalRating] = useState({ value: 0, count: 0 });
+
+
+    useEffect(() => {
+        const fetchUserInteraction = async () => {
+            try {
+                const data = await getInteraction(recipe._id);
+                if (data !== undefined) {
+                    setLiked(data.liked);
+                    setBookmarked(data.bookmarked);
+                    setRating(data.rating);
+                }
+            } catch (error) {
+                setError(error.message);
+            }
+        }
+        if (recipe?._id) {
+            setLocalLikeCounter(recipe.like_counter);
+            setLocalBookmarkCounter(recipe.bookmark_counter);
+            setLocalRating((prevRating) => ({
+                ...prevRating,
+                value: recipe.average_rating.value, 
+                count: recipe.average_rating.count, 
+            }));
+        
+            fetchUserInteraction();
+        }
+    }, [recipe?._id]);
+
+    const handleLike = async () => {
+        try {
+            await updateInteraction(recipe._id, 'liked', !liked);
+            setLiked(!liked); 
+            setLocalLikeCounter(liked ? localLikeCounter - 1 : localLikeCounter + 1);
+        } catch (error) {
+            console.error("Error liking the recipe:", error.message);
+            setLiked(liked);
+            setLocalLikeCounter(localLikeCounter);
+        }
+    };
+
+    const handleBookmark = async () => {
+        try {
+            await updateInteraction(recipe._id, 'bookmarked', !bookmarked);
+            setBookmarked(!bookmarked); 
+            setLocalBookmarkCounter(bookmarked ? localBookmarkCounter - 1 : localBookmarkCounter + 1);
+        } catch (error) {
+            console.error("Error bookmarking the recipe:", error.message);
+            setBookmarked(bookmarked);
+            setLocalBookmarkCounter(localBookmarkCounter);
+        }
+    };
+
+    const handleRating = async (event, newValue) => {
+        setRating(newValue); 
+
+        try {
+            const response = await updateInteraction(recipe._id, 'rated', newValue);
+            setLocalRating({
+                value: response.average_rating?.value, 
+                count: response.average_rating?.count, 
+            });
+        } catch (error) {
+            console.error("Error rating the recipe:", error.message);
+        }
+    };
 
     return (
         <Card sx={{
@@ -59,27 +131,29 @@ const RecipeView = ({recipe}) => {
                         <Box sx={{display:'flex', justifyContent:'space-between', gap:'10px',}}>
                             <Rating 
                                 name="simple-controlled"
-                                value={recipe.average_rating}
-                                // onChange={(event, newValue) => {
-                                // setValue(newValue);
-                                // }}
+                                value={rating}
+                                onChange={handleRating}
                             />
                             <Typography sx={{color: theme.palette.grey[600]}}>
-                                {recipe.average_rating}
+                                {localRating.value || 0} ({localRating.count|| 0})
                             </Typography>
                         </Box>
                         <Box sx={{display:'flex', justifyContent:'space-between', gap:'20px',}}>
-                            <Box sx={{display:'flex', gap:'7px'}}>
+                            <Box sx={{display:'flex', gap:'7px', alignItems:'center'}}>
                                 <Typography sx={{color: theme.palette.grey[600]}}>
-                                    {recipe.like_counter}
+                                    {localLikeCounter}
                                 </Typography>
-                                <FavoriteIcon sx={{ color: theme.palette.deepOrange[200] }}/>
+                                <IconButton onClick={handleLike}>
+                                    <FavoriteIcon sx={{ color: liked ? theme.palette.deepOrange[200] : theme.palette.grey[600]  }}/>
+                                </IconButton>
                             </Box>
-                            <Box sx={{display:'flex', gap:'7px'}}>
+                            <Box sx={{display:'flex', gap:'7px', alignItems:'center'}}>
                                 <Typography sx={{color: theme.palette.grey[600]}}>
-                                    {recipe.bookmark_counter}
+                                    {localBookmarkCounter}
                                 </Typography>
-                                <BookmarkIcon sx={{ color: theme.palette.deepOrange[200] }}/>
+                                <IconButton onClick={handleBookmark}>
+                                    <BookmarkIcon sx={{ color: bookmarked ? theme.palette.orange[300] : theme.palette.grey[600]  }}/>
+                                </IconButton>
                             </Box>
                         </Box>
                         
@@ -125,10 +199,6 @@ const RecipeView = ({recipe}) => {
                             </Box>
                         )}
                     </Box>
-
-        
-
-                   
 
                     <Box sx={{display: 'flex', justifyContent: 'center', gap:'5px'}}>
                         <Typography>

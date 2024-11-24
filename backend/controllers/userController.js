@@ -72,7 +72,7 @@ const authUser = async (req, res) => {
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private (requires token)
-const getUserProfile = async (req, res) => {
+const getMyProfile = async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
@@ -80,6 +80,7 @@ const getUserProfile = async (req, res) => {
       _id: user._id,
       username: user.username,
       email: user.email,
+      photo: user.photo,
     });
   } else {
     res.status(404);
@@ -90,5 +91,5 @@ const getUserProfile = async (req, res) => {
 module.exports = {
   registerUser,
   authUser,
-  getUserProfile,
+  getMyProfile,
 };

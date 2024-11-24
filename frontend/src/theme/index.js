@@ -11,6 +11,15 @@ const theme = createTheme({
   typography,   
   shadows,
   gradients,   
+  breakpoints: {
+    values: {
+      xs: 0,     // Extra small screen
+      sm: 600,   // Small screen
+      md: 960,   // Medium screen
+      lg: 1280,  // Large screen
+      xl: 1920,  // Extra large screen
+    },
+  },
   components: overrides,  
   shadows: [
     'none', 

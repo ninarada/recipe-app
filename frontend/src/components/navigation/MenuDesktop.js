@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Box, Typography, useTheme } from "@mui/material";
+import RibbonLogo from "../ribbonHeader/RibbonLogo";
 
 
 const MenuDesktop = ({ menuItems }) => {
@@ -17,28 +18,8 @@ const MenuDesktop = ({ menuItems }) => {
             alignItems: "center",
           }}
         >
-          <Typography
-            sx={{
-              color: theme.palette.deepOrange[900],
-              fontWeight: 900,
-              fontSize: "25px",
-              fontStyle: "italic",
-              textShadow: "0px 0px 1px rgba(0, 0, 0, 0.2)",
-            }}
-          >
-            e
-          </Typography>
-          <Typography
-            sx={{
-              color: theme.palette.primary.dark,
-              fontWeight: 900,
-              fontSize: "25px",
-              fontStyle: "italic",
-              textShadow: "0px 0px 1px rgba(0, 0, 0, 0.2)",
-            }}
-          >
-            Recipes
-          </Typography>
+          <RibbonLogo />
+          
         </Box>
       </Link>
       <Box

@@ -12,6 +12,25 @@ const getRecipes = async (req, res) => {
   }
 };
 
+// @desc    Get the top 3 most liked recipes
+// @route   GET /api/recipes/popular
+const getPopularRecipes = async (req, res) => {
+  try {
+    const popularRecipes = await Recipe.find()
+      .sort({ like_counter: -1 }) 
+      .limit(3); 
+
+    if (popularRecipes.length === 0) {
+      return res.status(404).json({ message: "No popular recipes found." });
+    }
+
+    res.json(popularRecipes);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+
 // @desc    Get a single recipe by ID
 // @route   GET /api/recipes/:id
 const getRecipeById = async (req, res) => {
@@ -91,6 +110,7 @@ const createRecipe = async (req, res) => {
 
 module.exports = {
   getRecipes,
+  getPopularRecipes,
   createRecipe,
   getRecipeById,
   getMyRecipes,

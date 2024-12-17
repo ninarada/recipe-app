@@ -10,6 +10,15 @@ export const getAllRecipes = async (limit) => {
     }
 }
 
+export const getPopularRecipes = async () => {
+    try {
+        const response = await apiClient.get("/api/recipes/popular");
+        return response.data;
+    } catch (error) {
+        throw new Error("Error loading recipes data.");
+    }
+}
+
 export const getRecipeById = async(id) => {
     try {
         const response = await apiClient.get(`/api/recipes/${id}`);

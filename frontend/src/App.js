@@ -31,10 +31,11 @@ function App() {
             <Route path="/create" element={<PrivateRoute element={<CreateRecipePage />} />} /> 
             <Route path="/profile" element={<PrivateRoute element={<ProfilePage />} />} /> 
             <Route path="/recipes" element={<PrivateRoute element={<BrowsePage />} />} />
-            <Route path="/recipes/:id" element={<ViewRecipePage />} />
+            <Route path="/recipes/:id" element={<PrivateRoute element={<ViewRecipePage />} />} />
             <Route path="/signin" element={<SignInPage />} />
 
         </Routes>
+        <Footer />
       </Router>
       </ThemeProvider>
       </Provider>

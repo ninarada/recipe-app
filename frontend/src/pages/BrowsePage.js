@@ -37,10 +37,20 @@ const BrowsePage = () => {
     }, []);
 
     const handleSearch = (searchTerm) => {
-        const filtered = recipes.filter(recipe =>
-            recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-            recipe.author.username.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+        const filtered = recipes.filter(recipe => {
+            const matchesSearchTerm = 
+                recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                recipe.author.username.toLowerCase().includes(searchTerm.toLowerCase());
+    
+            const matchesTags = selectedTags.every(tag =>
+                recipe.tags.some(recipeTag =>
+                    recipeTag.toLowerCase() === tag.toLowerCase()
+                )
+            );
+    
+            return matchesSearchTerm && matchesTags;
+        });
+    
         dispatch(setFilteredRecipes(filtered));
     };
     

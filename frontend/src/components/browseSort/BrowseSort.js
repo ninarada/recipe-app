@@ -99,33 +99,3 @@ const BrowseSort = () => {
 };
 
 export default BrowseSort;    
-
-    // const sortByLeastLiked = () => {
-    //     const sorted = [...recipes].sort((a, b) => a.like_counter - b.like_counter);
-    //     dispatch(setRecipes(sorted));
-    // };
-    
-    // const sortByMostLiked = () => {
-    //     const sorted = [...recipes].sort((a, b) => b.like_counter - a.like_counter);
-    //     dispatch(setRecipes(sorted));
-    // };
-
-    // const sortByHighestRated = () => {
-    //     const sorted = [...recipes].sort((a, b) => b.average_rating.value - a.average_rating.value); 
-    //     dispatch(setRecipes(sorted));
-    // };
-    
-    // const sortByLowestRated = () => {
-    //     const sorted = [...recipes].sort((a, b) => a.average_rating.value - b.average_rating.value); 
-    //     dispatch(setRecipes(sorted));
-    // };
-
-    // const sortByNewestFirst = () => {
-    //     const sorted = [...recipes].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); 
-    //     dispatch(setRecipes(sorted));
-    // };
-    
-    // const sortByOldestFirst = () => {
-    //     const sorted = [...recipes].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-    //     dispatch(setRecipes(sorted));
-    // };

@@ -23,7 +23,9 @@ const BrowsePage = () => {
             try {
                 const data = await getAllRecipes();
                 dispatch(setRecipes(data));  
-                dispatch(setFilteredRecipes(data));
+                if(selectedTags.length < 1) {
+                    dispatch(setFilteredRecipes(data));
+                }
                 const dataTags = await getTags();
                 dispatch(setAllTags(dataTags));
             } catch (error) {

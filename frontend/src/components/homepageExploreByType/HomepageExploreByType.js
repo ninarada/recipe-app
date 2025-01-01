@@ -4,16 +4,32 @@ import BakeryDiningRoundedIcon from '@mui/icons-material/BakeryDiningRounded';
 import LunchDiningRoundedIcon from '@mui/icons-material/LunchDiningRounded';
 import DinnerDiningRoundedIcon from '@mui/icons-material/DinnerDiningRounded';
 import CakeRoundedIcon from '@mui/icons-material/CakeRounded';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { addTag, removeAllTags, setFilteredRecipes } from "../../redux/slices/browseSlice";
 
 const HomepageExploreByType = () => {
     const theme = useTheme();
-
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const recipes = useSelector((state) => state.browse.recipes); 
+    
     const exploreCategoryItems = [
       { icon: <BakeryDiningRoundedIcon sx={{ fontSize: 70, color: theme.palette.brown[800] }} />, label: "breakfast" },
       { icon: <LunchDiningRoundedIcon sx={{ fontSize: 60, color: theme.palette.brown[800] }} />, label: "lunch" },
       { icon: <DinnerDiningRoundedIcon sx={{ fontSize: 60, color: theme.palette.brown[800] }} />, label: "dinner" },
       { icon: <CakeRoundedIcon sx={{ fontSize: 60, color: theme.palette.brown[800] }} />, label: "dessert" },
     ];
+
+    const handleClickType = (tag) => {
+      dispatch(removeAllTags());
+      dispatch(addTag(tag));
+      const filtered = recipes.filter((recipe) => {
+        return recipe.tags.some((recipeTag) => recipeTag.toLowerCase() === tag.toLowerCase());
+      });
+      dispatch(setFilteredRecipes(filtered));
+      navigate("/recipes"); 
+  }
 
     return (
         <Box 
@@ -60,19 +76,22 @@ const HomepageExploreByType = () => {
             }}>
               {exploreCategoryItems.map((item,index) => (
                 <Box>
-                  <Box key={index} sx={{
-                    backgroundColor: theme.palette.deepOrange[50],
-                    borderRadius: '50%',
-                    height: '150px',
-                    width: '150px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    boxShadow: 'inset 0px 2px 6px rgba(71, 71, 71, 0.2)',
+                  <Box key={index} onClick={()=>handleClickType(item.label)} 
+                    sx={{
+                      cursor: 'pointer',
+                      backgroundColor: theme.palette.deepOrange[50],
+                      borderRadius: '50%',
+                      height: '150px',
+                      width: '150px',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      boxShadow: 'inset 0px 2px 6px rgba(71, 71, 71, 0.2)',
                   }}>
                     {item.icon}
                   </Box>
-                  <Typography sx={{
+                  <Typography  onClick={()=>handleClickType(item.label)}  sx={{
+                    cursor: 'pointer',
                     color: theme.palette.brown[200],
                     textTransform: 'lowercase',
                     fontSize: '24px',
@@ -81,8 +100,8 @@ const HomepageExploreByType = () => {
                     textAlign: 'center',
                     paddingTop: '10px',
                   }}>
-                    {item.label
-                  }</Typography>            
+                    {item.label}
+                  </Typography>            
                 </Box>
               ))}
             </Box>

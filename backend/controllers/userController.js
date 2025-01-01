@@ -88,8 +88,76 @@ const getMyProfile = async (req, res) => {
   }
 };
 
+// @desc    Save or update user profile information
+// @route   PUT /api/users/profile
+// @access  Private (requires token)
+const saveProfile = async (req, res) => {
+  const { username, email, photo } = req.body;
+
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+  if (username) {
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername && existingUsername._id.toString() !== req.user._id.toString()) {
+      return res.status(400).json({ message: 'Username is already in use.' });
+    }
+    user.username = username;
+  }
+
+  if (email) {
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail && existingEmail._id.toString() !== req.user._id.toString()) {
+      return res.status(400).json({ message: 'Email is already in use.' });
+    }
+    user.email = email;
+  }
+
+  if (photo) {
+    user.photo = photo; 
+  }
+
+  const updatedUser = await user.save();
+
+  res.json({
+    _id: updatedUser._id,
+    username: updatedUser.username,
+    email: updatedUser.email,
+    photo: updatedUser.photo,
+    token: generateToken(updatedUser._id),
+  });
+};
+
+// @desc    Change user password
+// @route   PUT /api/users/change-password
+// @access  Private (requires token)
+const changePassword = async (req, res) => {
+  const { currentPassword, newPassword, } = req.body;
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  if (!(await user.matchPassword(currentPassword))) {
+    return res.status(400).json({ message: 'Incorrect current password' });
+  }
+
+  user.password = newPassword;
+  await user.save();
+
+  res.json({ message: 'Password changed successfully' });
+};
+
+
 module.exports = {
   registerUser,
   authUser,
   getMyProfile,
+  saveProfile,
+  changePassword,
 };

@@ -5,12 +5,16 @@ import { getMyRecipes } from "../service/recipeService";
 import { getLikedRecipes, getBookmarkedRecipes, getRatedRecipes } from "../service/userRecipeService";
 import { useEffect, useState } from "react";
 import RecipeCard from "../components/recipeCard/RecipeCard";
+import ProfileEdit from "../components/profileInfoEdit/ProfileEdit";
+import ProfileChangePassword from "../components/profileChangePassword/ProfileChangePassword";
 
 const ProfilePage = () => {
     const theme = useTheme();
     const [recipes, setRecipes] = useState([]);
     const [error, setError] = useState(null);
     const [selectedFilter, setSelectedFilter] = useState("my recipes");
+    const [editing, setEditing] = useState(false);
+    const [changingPassword, setChangingPassword] = useState(false);
 
     const fetchFunctions = {
         "my recipes": getMyRecipes,
@@ -47,8 +51,17 @@ const ProfilePage = () => {
         }}>
         <Box  sx={{ display: 'flex', flexDirection:{ xs: 'column', md: 'row' }, justifyContent: 'space-evenly', gap: '20px'}}>
 
-            <Box  >
-                <ProfileInfo/>
+            <Box>
+                {editing ? (
+                    <ProfileEdit onCancel={()=>setEditing(false)} onSave={()=>setEditing(false)} />
+                ) : (
+                    changingPassword ? (
+                        <ProfileChangePassword onCancel={()=>setChangingPassword(false)} onSave={()=>setChangingPassword(false)} />
+                    ) : ( 
+                        <ProfileInfo onEdit={()=>setEditing(true)} onChangePassword={()=>setChangingPassword(true)}/>
+                    )
+                   
+                )}
             </Box>
 
             <Box sx={{width: '100%'}}>

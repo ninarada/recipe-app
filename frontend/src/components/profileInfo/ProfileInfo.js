@@ -1,11 +1,10 @@
 import { Avatar, Box, Card, Typography, useTheme, useMediaQuery } from "@mui/material";
-import EditIcon from '@mui/icons-material/Edit';
 import { useEffect, useState } from "react";
 import { getMyProfile } from "../../service/userService";
 import PrimaryButton from "../buttons/primaryButton";
 import SecondaryButton from "../buttons/secondaryButton";
 
-const ProfileInfo = () => {
+const ProfileInfo = ({ onEdit, onChangePassword }) => {
     const theme = useTheme();
     const [userInfo, setUserInfo] = useState({});
     const [error, setError] = useState(null);
@@ -68,8 +67,8 @@ const ProfileInfo = () => {
                 </Box>
 
                 <Box sx={{display:'flex', flexDirection: 'column', gap: '10px', padding:'20px 10px'}}>
-                    <PrimaryButton text={'edit profile'} />
-                    <SecondaryButton text={'change password'}/>
+                    <PrimaryButton text={'edit profile'} onClick={onEdit}/>
+                    <SecondaryButton text={'change password'} onClick={onChangePassword}/>
                 </Box>
             </Box>
 

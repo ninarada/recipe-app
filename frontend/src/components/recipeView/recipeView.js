@@ -16,9 +16,16 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useEffect, useState } from "react";
 import { getInteraction, updateInteraction } from "../../service/userRecipeService";
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { addTag, setFilteredRecipes } from "../../redux/slices/browseSlice";
 
 const RecipeView = ({recipe}) => {
     const theme = useTheme();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const recipes = useSelector((state) => state.browse.recipes); 
+    const selectedTags = useSelector((state) => state.browse.selectedTags); 
     const [liked, setLiked] = useState(false); 
     const [bookmarked, setBookmarked] = useState(false);
     const [rating, setRating] = useState(0);
@@ -91,6 +98,15 @@ const RecipeView = ({recipe}) => {
             console.error("Error rating the recipe:", error.message);
         }
     };
+
+    const handleClickTag = (tag) => {
+        dispatch(addTag(tag));
+        const filtered = recipes.filter((recipe) =>
+            recipe.tags.some((recipeTag) => recipeTag.toLowerCase() === tag.toLowerCase())
+        );
+        dispatch(setFilteredRecipes(filtered));
+        navigate("/recipes"); 
+    }
 
     return (
         <Card sx={{
@@ -284,6 +300,7 @@ const RecipeView = ({recipe}) => {
                                 label={tag}
                                 color="primary"
                                 sx={{fontSize:'16px'}}
+                                onClick={() => handleClickTag(tag)}
                             />
                         ))}
                     </Stack>

@@ -34,6 +34,9 @@ const browseSlice = createSlice({
             const index = action.payload;
             state.selectedTags.splice(index, 1);
         },
+        removeAllTags: (state) => {
+            state.selectedTags = [];
+        },
     }
 });
 
@@ -44,7 +47,8 @@ export const {
     setItemsPerPage,
     setAllTags,
     addTag,
-    removeTag
+    removeTag,
+    removeAllTags
 } = browseSlice.actions;
 
 export default browseSlice.reducer;

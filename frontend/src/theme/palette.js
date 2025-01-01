@@ -47,6 +47,9 @@ const palette = {
       main: '#29b6f6',
       dark: '#0288d1',
     },
+    menu: {
+      main: '#ffffff4d',
+    },
     grey: {
       50: '#fafafa',
       100: '#f5f5f5',

@@ -1,11 +1,31 @@
-import { Card, CardMedia, CardContent, Typography, Box, IconButton } from '@mui/material';
+import { Card, CardMedia, CardContent, Typography, Box } from '@mui/material';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useTheme } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getInteraction } from '../../service/userRecipeService';
 
 const RecipeCard = ({ id, title, author, photo, description, bookmark, like }) => {
     const theme = useTheme();
+    const [error, setError] = useState(null); 
+    const [interaction, setInteraction] = useState(null);
+    const [isBookmarked, setIsBookmarked] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
+
+    useEffect(() => {
+        const fetchInteraction = async () => {
+            try {
+                const data = await getInteraction(id);
+                setInteraction(data);
+                setIsBookmarked(data.bookmarked);
+                setIsLiked(data.liked);
+            } catch (error) {
+                setError(error.message);
+            }
+        }
+        fetchInteraction();
+    }, []);
 
     return (
       <Link to={`/recipes/${id}`}  style={{ textDecoration: 'none', color: 'inherit', cursor:'pointer' }}> 
@@ -36,7 +56,10 @@ const RecipeCard = ({ id, title, author, photo, description, bookmark, like }) =
                 justifyContent: 'end', 
                 alignItems: 'center',
             }}>
-                <BookmarkIcon sx={{ color: theme.palette.grey[50], }}/>
+                <BookmarkIcon sx={{ 
+                    color: isBookmarked ? theme.palette.warning.light : theme.palette.grey[50], 
+                    filter: 'drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.7))' 
+                }}/>
             </Box>
             <CardMedia
                 component="img"
@@ -75,12 +98,12 @@ const RecipeCard = ({ id, title, author, photo, description, bookmark, like }) =
                     paddingBottom: '10px', 
                     alignItems: 'center',
                 }}>
-                    <Box sx={{display:'flex'}}>
-                        <Typography sx={{ color: theme.palette.grey[700] }}>
+                    <Box sx={{display:'flex',  fontSize: '17px'}}>
+                        <Typography sx={{ color: theme.palette.grey[700], alignContent:'center', paddingTop:'1px' }}>
                             By&nbsp;
                         </Typography>
-                        <Link style={{ textDecoration: "none", color: theme.palette.grey[500] }}>
-                            {author}
+                        <Link style={{ textDecoration: "none", color: theme.palette.grey[500],}}>
+                            {author.username}
                         </Link>
                     </Box>
                     
@@ -88,7 +111,7 @@ const RecipeCard = ({ id, title, author, photo, description, bookmark, like }) =
                         <Typography sx={{ color: theme.palette.text.secondary }}>
                             {like}
                         </Typography>
-                        <FavoriteIcon sx={{ color: theme.palette.deepOrange[200] }}/>
+                        <FavoriteIcon sx={{ color: isLiked ? theme.palette.error.dark : theme.palette.grey[500] }}/>
                     </Box>
                 </Box>
             </CardContent>

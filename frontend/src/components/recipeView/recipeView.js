@@ -144,7 +144,7 @@ const RecipeView = ({recipe}) => {
                                     {localLikeCounter}
                                 </Typography>
                                 <IconButton onClick={handleLike}>
-                                    <FavoriteIcon sx={{ color: liked ? theme.palette.deepOrange[200] : theme.palette.grey[600]  }}/>
+                                    <FavoriteIcon sx={{ color: liked ? theme.palette.error.dark : theme.palette.grey[600]  }}/>
                                 </IconButton>
                             </Box>
                             <Box sx={{display:'flex', gap:'7px', alignItems:'center'}}>
@@ -152,7 +152,7 @@ const RecipeView = ({recipe}) => {
                                     {localBookmarkCounter}
                                 </Typography>
                                 <IconButton onClick={handleBookmark}>
-                                    <BookmarkIcon sx={{ color: bookmarked ? theme.palette.orange[300] : theme.palette.grey[600]  }}/>
+                                    <BookmarkIcon sx={{ color: bookmarked ? theme.palette.warning.light : theme.palette.grey[600]  }}/>
                                 </IconButton>
                             </Box>
                         </Box>
@@ -205,7 +205,7 @@ const RecipeView = ({recipe}) => {
                             made by 
                         </Typography>
                         <Typography sx={{fontStyle: 'italic', color: theme.palette.grey[700]}}>
-                            username
+                            {recipe.author?.username}
                         </Typography>
                     </Box>
                   </Card>

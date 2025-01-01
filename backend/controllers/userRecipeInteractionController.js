@@ -100,7 +100,13 @@ const getLikedRecipes = async (req, res) => {
         const likedRecipes = await UserRecipeInteraction.find({
             user: userId,
             liked: true
-        }).populate('recipe'); 
+        }).populate({
+            path: 'recipe',
+            populate: {
+              path: 'author', 
+              select: 'username photo', 
+            },
+          }); 
         res.json(likedRecipes);
     } catch (error) {
         console.error('Error retrieving liked recipes:', error);
@@ -114,7 +120,13 @@ const getBookmarkedRecipes = async (req, res) => {
         const bookmarkedRecipes = await UserRecipeInteraction.find({
             user: userId,
             bookmarked: true
-        }).populate('recipe'); 
+        }).populate({
+            path: 'recipe',
+            populate: {
+              path: 'author', 
+              select: 'username photo', 
+            },
+          }); 
         res.json(bookmarkedRecipes);
     } catch (error) {
         console.error('Error retrieving bookmarked recipes:', error);
@@ -128,7 +140,13 @@ const getRatedRecipes = async (req, res) => {
         const ratedRecipes = await UserRecipeInteraction.find({
             user: userId,
             rating: { $ne: 0 }
-        }).populate('recipe'); 
+        }).populate({
+            path: 'recipe',
+            populate: {
+              path: 'author', 
+              select: 'username photo', 
+            },
+          }); 
         res.json(ratedRecipes);
     } catch (error) {
         console.error('Error retrieving rated recipes:', error);

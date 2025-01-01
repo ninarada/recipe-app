@@ -44,6 +44,15 @@ export const getMyRecipes = async() => {
     }
 }
 
+export const getTags = async () => {
+    try {
+        const response = await apiClient.get('/api/recipes/tags');
+        return response.data;
+    } catch (error) {
+        throw new Error("Error loading tags.");
+    }
+} 
+
 export const createRecipe = async (title, description,  ingredients, instructions, time_consuming, difficulty, photo, tags) => {
     try {
         const userData = JSON.parse(localStorage.getItem('userData'));

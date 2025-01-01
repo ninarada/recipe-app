@@ -5,7 +5,10 @@ const Recipe = require("../models/Recipe");
 const getRecipes = async (req, res) => {
   try {
     const limit = parseInt(req.query._limit, 10);
-    const recipes = await Recipe.find().limit(limit);
+    const recipes = await Recipe.find()
+      .sort({ like_counter: -1 }) 
+      .limit(limit)
+      .populate('author', 'username photo');
     res.json(recipes);
   } catch (error) {
     res.status(500).send(error.message);
@@ -18,7 +21,8 @@ const getPopularRecipes = async (req, res) => {
   try {
     const popularRecipes = await Recipe.find()
       .sort({ like_counter: -1 }) 
-      .limit(3); 
+      .limit(3)
+      .populate('author', 'username photo'); 
 
     if (popularRecipes.length === 0) {
       return res.status(404).json({ message: "No popular recipes found." });
@@ -36,7 +40,7 @@ const getPopularRecipes = async (req, res) => {
 const getRecipeById = async (req, res) => {
   try {
     const recipeId = req.params.id;
-    const recipe = await Recipe.findById(recipeId);
+    const recipe = await Recipe.findById(recipeId).populate('author', 'username photo');
     if (!recipe) {
       return res.status(404).json({ message: "Recipe not found" });
     }
@@ -52,7 +56,7 @@ const getRecipeById = async (req, res) => {
 const getMyRecipes = async (req, res) => {
   try {
     const userId = req.user._id;
-    const recipes = await Recipe.find({author: userId});
+    const recipes = await Recipe.find({author: userId}).populate('author', 'username photo');
 
     if (recipes.length === 0) {
       return res.status(404).json({ message: "No recipes found for this user" });
@@ -63,6 +67,27 @@ const getMyRecipes = async (req, res) => {
     res.status(500).send(error.message);
   }
 }
+
+// @desc    Get tags 
+// @route   GET /api/recipes/tags
+const getTags = async (req, res) => {
+  try {
+    const tags = await Recipe.aggregate([
+      { $match: { tags: { $exists: true, $not: { $size: 0 } } } },
+      { $unwind: "$tags" },
+      { $project: { tags: { $toLower: "$tags" } } },
+      { $group: { _id: "$tags", count: { $sum: 1 } } },
+      { $sort: { count: -1 } },
+      { $project: { _id: 0, tag: "$_id" } }
+    ]);
+
+    const sortedTags = tags.map(item => item.tag);
+
+    res.json(sortedTags); 
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 // @desc    Add a newly created recipe
 // @route   POST /api/recipes/create
@@ -114,4 +139,5 @@ module.exports = {
   createRecipe,
   getRecipeById,
   getMyRecipes,
+  getTags,
 };

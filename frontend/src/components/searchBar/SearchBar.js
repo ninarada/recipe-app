@@ -3,7 +3,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Box, TextField, InputAdornment, IconButton } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = ({ onSearch, widthMD, placeholder }) => {
     const [searchTerm, setSearchTerm] = React.useState('');
     const theme = useTheme();
 
@@ -32,10 +32,9 @@ const SearchBar = ({ onSearch }) => {
         <Box sx={{
             display: "flex",
             justifyContent: 'center',
-            padding: "30px 0px 60px 0px",
         }}>
             <TextField
-                placeholder="Search recipes..."
+                placeholder={placeholder}
                 value={searchTerm}
                 onChange={handleSearchChange}
                 onKeyDown={handleKeyDown}
@@ -49,10 +48,11 @@ const SearchBar = ({ onSearch }) => {
                     ),
                     sx: {
                         height: '40px',
+                        width:{xs:'70vw', md:`${widthMD}vw`},
                         padding: '5px',
                         borderRadius: '20px',
                         backgroundColor: theme.palette.primary.light,
-                        boxShadow: '0px 0px 20px -4px rgba(0,0,0,0.3)',
+                        boxShadow: '0px 0px 10px -4px rgba(0,0,0,0.3)',
                     }
                 }}
                 sx={{

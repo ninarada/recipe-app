@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, useTheme } from "@mui/material";
 
-const SecondaryButton = ({ text, type, onClick, fontsize, disabled }) => {
+const SecondaryButton = ({ text, type, onClick, fontsize, disabled, icon }) => {
   const theme = useTheme();
 
   return (
@@ -24,6 +24,7 @@ const SecondaryButton = ({ text, type, onClick, fontsize, disabled }) => {
       }}
     >
       {text}
+      {icon}
     </Button>
   );
 };

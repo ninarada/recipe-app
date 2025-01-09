@@ -47,25 +47,30 @@ const registerUser = async (req, res) => {
 
 // @desc    Authenticate user & get token
 // @route   POST /api/users/login
-const authUser = async (req, res) => {
+const authUser = async (req, res, next) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
     return res.status(400).json({ message: "All fields are required." });
   }
 
-  const user = await User.findOne({ username });
+  try {
+    const user = await User.findOne({ username });
 
-  if (user && (await user.matchPassword(password))) {
-    res.json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      token: generateToken(user._id),
-    });
-  } else {
-    res.status(401);
-    throw new Error('Invalid username or password');
+    if (user && (await user.matchPassword(password))) {
+      res.json({
+        _id: user._id,
+        username: user.username,
+        email: user.email,
+        token: generateToken(user._id),
+      });
+    } else {
+      const error = new Error('Invalid username or password');
+      error.status = 401;  
+      next(error);
+    }
+  } catch (error) {
+    next(error);
   }
 };
 

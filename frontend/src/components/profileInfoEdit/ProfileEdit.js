@@ -1,4 +1,4 @@
-import { Avatar, Box, Card, Typography, useTheme, useMediaQuery, TextField, IconButton } from "@mui/material";
+import { Avatar, Box, Card, useTheme, useMediaQuery, TextField, IconButton } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import { useEffect, useState } from "react";
 import { getMyProfile, saveProfile } from "../../service/userService";
@@ -23,14 +23,6 @@ const ProfileEdit = ({ onCancel, onSave }) => {
         }
         fetchMyProfile();
     }, []);
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          const fileUrl = URL.createObjectURL(file);
-          setSelectedImage(fileUrl);
-        }
-    };
 
     const handleEditClick = () => {
         document.getElementById('photo-input').click();

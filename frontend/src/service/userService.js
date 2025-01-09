@@ -111,7 +111,7 @@ export const saveProfilePassword = async (currentPassword, newPassword, confirmP
         alert(response.data.message); 
         return { success: true, data: response.data };
     } catch (error) {
-        if(error.response.status == 400) {
+        if(error.response.status === 400) {
             alert('Incorrect current password');
         } else {
             alert("Error changing password. Please try again later.");

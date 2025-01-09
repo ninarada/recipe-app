@@ -30,7 +30,7 @@ const HomePage = () => {
     if (!isAuthenticated) {
       navigate('/signin');
     } else {
-      navigate('/recipes');
+      navigate('/profile');
     }
   }
 

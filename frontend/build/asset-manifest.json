@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/static/js/main.fb9202c4.js",
+    "main.js": "/static/js/main.2c85aa38.js",
     "static/media/Ramen-amico.svg": "/static/media/Ramen-amico.73762d01daaf003138493613f0059a48.svg",
     "index.html": "/index.html",
-    "main.fb9202c4.js.map": "/static/js/main.fb9202c4.js.map"
+    "main.2c85aa38.js.map": "/static/js/main.2c85aa38.js.map"
   },
   "entrypoints": [
-    "static/js/main.fb9202c4.js"
+    "static/js/main.2c85aa38.js"
   ]
 }

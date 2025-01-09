@@ -41,3 +41,11 @@ app.use('/api/users', userRoutes);
 app.use('/api/interactions', userRecipeInteractionRoutes);
 
 app.use(errorHandler);
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  });
+}

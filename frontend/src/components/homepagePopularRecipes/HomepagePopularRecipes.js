@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
-import { Box, useTheme, } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery} from "@mui/material";
 import RecipeCard from "../recipeCard/RecipeCard";
 import RibbonHeader from "../ribbonHeader/RibbonHeader";
 import PrimaryButton from "../buttons/primaryButton";
@@ -16,6 +16,7 @@ const HomepagePopularRecipes = () => {
     const [error, setError] = useState(null); 
     const userInfo = useSelector((state) => state.user.userInfo);
     const isAuthenticated = Boolean(userInfo);
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
     useEffect(() => {
         const fetchRecipes = async () => {
@@ -53,7 +54,20 @@ const HomepagePopularRecipes = () => {
           gap:'20px',
         }}
       >
-        <RibbonHeader text={"popular recipes"} />
+        {isSmallScreen ? 
+          <Typography sx={{
+            textAlign:'center', 
+            color: theme.palette.primary.dark,
+            textTransform: 'uppercase',
+            textShadow: '-1px 1px 2px rgba(0,0,0,0.4)',
+            fontSize: '34px',
+            fontWeight: 700,
+          }}>
+            Popular Recipes
+          </Typography> 
+          : 
+          <RibbonHeader text={"popular recipes"} />
+        }
         
         <motion.div
               initial={{ opacity: 0, translateY: 100 }}

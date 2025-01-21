@@ -20,7 +20,7 @@ A full-stack MERN (MongoDB, Express, React, Node.js) application where users can
 - **Search**: Search for recipes by name or author.
 - **Responsive UI**: A clean and mobile-friendly interface for seamless user experience.
 
-## App Preview 📸 
+## App Preview
 
 ### **Login Page**
 The login page allows users to access their accounts using their credentials. It’s designed with a clean and minimalistic layout for a smooth login experience.
@@ -110,7 +110,7 @@ The user profile page allows users to view and manage their personal information
 - **Styling**: Material-UI (MUI) for UI components, custom styling with CSS/SCSS
 - **Other Tools**: Bcrypt for password hashing, Multer for file uploads (if applicable)
 
-## 📖 How to Run Locally
+## How to Run Locally
 
 To run the Recipe App locally on your machine, follow these steps:
 

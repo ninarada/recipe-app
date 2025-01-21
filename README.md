@@ -87,10 +87,10 @@ The "Create New Recipe" page allows users to submit their own recipes in a step-
 ### **User Profile**
 The user profile page allows users to view and manage their personal information, including the recipes they've created, liked, bookmarked, and rated. It also provides options to edit their profile details and change their password. The page is divided into the following sections:
 
-1. **My Recipes**: Displays all the recipes that the user has created. Users can view, edit, or delete their own recipes.
+1. **My Recipes**: Displays all the recipes that the user has created. 
 2. **Liked Recipes**: Shows a list of recipes that the user has liked, allowing them to revisit their favorite dishes.
 3. **Bookmarked Recipes**: A collection of recipes that the user has bookmarked for later. These recipes are saved for easy access.
-4. **Rated Recipes**: A section where users can see all the recipes they've rated, with the corresponding ratings they gave.
+4. **Rated Recipes**: A section where users can see all the recipes they've rated.
 5. **Profile Details**: Displays the user's basic information, such as their username, email, and profile picture. Users can update their personal details here.
 6. **Change Password**: Users can update their password for enhanced security.
 
@@ -103,12 +103,29 @@ The user profile page allows users to view and manage their personal information
 
 ## Tech Stack
 
-- **Frontend**: React, Redux, Material-UI, Axios, React Router
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
-- **Authentication**: JWT (JSON Web Token) for secure user authentication
-- **Styling**: Material-UI (MUI) for UI components, custom styling with CSS/SCSS
-- **Other Tools**: Bcrypt for password hashing, Multer for file uploads (if applicable)
+- **Frontend**:
+  - **React**: A JavaScript library for building user interfaces, enabling a dynamic and responsive web experience.
+  - **Redux**: A state management tool for efficiently handling application state across components.
+  - **Axios**: A promise-based HTTP client used for making API requests and handling asynchronous communication.
+  - **React Router**: A routing library that allows for seamless navigation within the app, enabling a multi-page experience.
+
+- **Backend**:
+  - **Node.js**: A JavaScript runtime that powers the backend of the application, ensuring scalability and performance.
+  - **Express.js**: A minimalist web framework for Node.js, simplifying the creation of server-side logic and API endpoints.
+
+- **Database**:
+  - **MongoDB**: A NoSQL database used to store and manage application data, offering flexibility and scalability for large datasets.
+
+- **Authentication**:
+  - **JWT (JSON Web Token)**: A secure method for handling user authentication and authorization through tokens, ensuring safe access to protected routes and resources.
+
+- **Styling**:
+  - **Material-UI (MUI)**: A UI component library based on Material Design, providing a consistent and modern design system.
+  - **CSS/SCSS**: Custom styles for fine-tuning the user interface and ensuring a responsive, visually appealing layout.
+
+- **Other Tools**:
+  - **Bcrypt**: A library used for securely hashing and salting passwords, ensuring sensitive user data is protected.
+  - **Multer**: A middleware for handling file uploads (e.g., images, documents) if applicable within the app.
 
 ## How to Run Locally
 

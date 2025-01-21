@@ -2,12 +2,10 @@
 
 A full-stack MERN (MongoDB, Express, React, Node.js) application where users can browse, create, and interact with recipes. The app allows users to manage their profiles, rate, favorite, bookmark recipes, and search for their favorite dishes.
 
-You can access the live version of the app here: [Recipe App on Render](https://recipe-app-tll1.onrender.com/).
-
 ## 📑 Table of Contents
 
 - [Features](#features)
-- [App Preview](#app-review)
+- [App Preview](#app-preview)
 - [Tech Stack](#tech-stack)
 - [How to Run Locally](#how-to-run-locally)
 
@@ -22,7 +20,7 @@ You can access the live version of the app here: [Recipe App on Render](https://
 - **Search**: Search for recipes by name or author.
 - **Responsive UI**: A clean and mobile-friendly interface for seamless user experience.
 
-## 📸 App Preview
+## App Preview 📸 
 
 ### **Login Page**
 The login page allows users to access their accounts using their credentials. It’s designed with a clean and minimalistic layout for a smooth login experience.
@@ -54,16 +52,15 @@ The Search Page allows users to find recipes quickly and efficiently. Users can 
 
 1. **Search Bar**: Users can type keywords (e.g., recipe name, author) into the search bar to find relevant recipes.
 2. **Tag Filters**: The user can filter the search results by selecting tags such as "Vegetarian," "Dessert," "Quick Meals," etc., to narrow down the recipe options.
-3. **Sorting Options**: Users can sort the search results by different criteria such as:
-   - **Most Popular**
-   - **Newest**
-   - **Highest Rated**
+3. **Sorting Options**: Users can sort the search results by different criteria such as: Most Popular, Newest, Highest Rated...
 4. **Recipe Results**: Displays the list of recipes that match the search criteria, with options to view, like, or bookmark them.
 
 <div align="center">
   <img src="./screenshots/search.png" alt="Search Page" width="70%">
-  <img src="./screenshots/filter.png" alt="Page" width="70%">
-  <img src="./screenshots/sort.png" alt="Page" width="70%">
+</div>
+<div align="center" style="display: flex; justify-content: center; align-items: center; ">
+  <img src="./screenshots/filter.png" alt="Filter Page" width="30%">
+  <img src="./screenshots/sort.png" alt="Sort Page" width="30%">
 </div>
 
 ### **Create New Recipe**

@@ -97,8 +97,10 @@ The user profile page allows users to view and manage their personal information
 <div align="center">
   <img src="./screenshots/profile1.png" alt="Sign Up Page" width="70%">
   <img src="./screenshots/profile2.png" alt="Sign Up Page" width="70%">
-  <img src="./screenshots/profile3.png" alt="Sign Up Page" width="70%">
-  <img src="./screenshots/profile4.png" alt="Sign Up Page" width="70%">
+</div>
+<div align="center" style="display: flex; justify-content: center; align-items: center; ">
+  <img src="./screenshots/profile3.png" alt="Filter Page" width="30%">
+  <img src="./screenshots/profile4.png" alt="Sort Page" width="30%">
 </div>
 
 ## Tech Stack
